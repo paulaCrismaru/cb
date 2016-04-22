@@ -155,8 +155,6 @@ function is_ubuntu {
 }
 
 function copy_check (){
-
-
     if [ $? == 0 ] ; then
         echo "$1 successfully copied $2" >> summary.log
     else
@@ -166,26 +164,26 @@ fi
 }
 
 function rsa_keys(){
-    cd ~
-    if [ ! -d .ssh ] ; then
-        mkdir .ssh
-        echo ".ssh was created" >> summary.log
+    cd /root/
+    if [ ! -d /root/.ssh ] ; then
+        mkdir /root/.ssh
+        echo ".ssh folder was created" >> summary.log
     else
-        echo ".ssh already exists" >> summary.log
+        echo ".ssh folder already exists" >> summary.log
     fi
 
     file=$(echo $1 | grep -oP "[a-zA-Z-_0-9]*")
 
-    cp $file ~/.ssh
+    cp $file /root/.ssh/
     copy_check $file
 
-    cp $file".pub" ~/.ssh
+    cp $file".pub" /root/.ssh/
     copy_check $file".pub"
 
-    cat $file".pub" > ~/.ssh/authorized_keys
+    cat $file".pub" > /root/.ssh/authorized_keys
     copy_check $file".pub" "in authorized_keys"
-    chmod 600 ~/.ssh/authorized_keys
-    chmod 600 ~/.ssh/$file
+    chmod 600 /root/.ssh/authorized_keys
+    chmod 600 /root/.ssh/$file
     chmod 700 .ssh
 }
 
@@ -290,6 +288,7 @@ function install_lis(){
             fi
         else
             echo "Error: ata_piix.ko insert failed" >> summary.log
+            
             echo "Hyper-V Daemons will be installed by yum" >> summary.log
             yum install hyperv-daemons -y
             verify_install $? hyperv-daemons
@@ -360,7 +359,6 @@ function configure_grub(){
 # Main script body
 #
 #######################################################################
-
 if is_fedora ; then
     echo "Starting the configuration..."
 
@@ -476,7 +474,6 @@ elif is_suse ; then
     #Second one is xattr. Just moving the file where stress-ng is searching for it
     mkdir /usr/include/attr/
     cp /usr/include/sys/xattr.h /usr/include/attr/xattr.h
-
 
     PACK_LIST=(at dos2unix dosfstools git-core subversion ntp)
     for item in ${PACK_LIST[*]}
