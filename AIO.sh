@@ -322,6 +322,7 @@ function install_Stress_ng(){
 
     git clone https://github.com/ColinIanKing/stress-ng
     cd stress-ng
+    git checkout tags/V0.06.17
     make
     make install
     verify_install $? Stress
