@@ -362,6 +362,9 @@ function remove_udev(){
     chmod 775 /etc/init.d/remove_udev
     if is_suse ; then
         ln -s /etc/init.d/remove_udev /etc/init.d/rc0.d/S00remove_udev
+        if [ $? -ne 0 ]; then
+            ln -s /etc/init.d/remove_udev /etc/rc.d/rc0.d/S00remove_udev
+        fi
     else
         ln -s /etc/init.d/remove_udev /etc/rc0.d/S00remove_udev
     fi
