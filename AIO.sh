@@ -450,7 +450,7 @@ if is_fedora ; then
 	fi
 
     echo "Installing packages..." >> summary.log
-    PACK_LIST=(openssh-server dos2unix at net-tools gpm bridge-utils btrfs-progs xfsprogs ntp crash bc selinux-policy-devel
+    PACK_LIST=(openssh-server dos2unix at net-tools gpm bridge-utils btrfs-progs xfsprogs ntp crash bc selinux-policy-devel tcpdump
         libaio-devel libattr-devel keyutils-libs-devel nano kexec-tools device-mapper-multipath expect sysstat git bc numactl python3)
     for item in ${PACK_LIST[*]}
     do
